@@ -1,73 +1,112 @@
-# React + TypeScript + Vite
+# Product Manager (CRUD)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Módulo simple de **gestión de productos** (CRUD) construido con **React + TypeScript**, siguiendo una arquitectura por módulos y buenas prácticas.
 
-Currently, two official plugins are available:
+## Tecnologías
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React 18 + TypeScript
+- TanStack Router (navegación)
+- TanStack Query (manejo de datos)
+- React Hook Form + Zod (formularios y validación)
+- Zustand (estado global, si aplica)
+- Axios (capa API)
+- Tailwind CSS (estilos)
+- React Toastify (notificaciones)
 
-## React Compiler
+## Funcionalidades
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Listado de productos en tabla
+- Filtros por:
+    - nombre (búsqueda)
+    - categoría
+    - estado (activo/inactivo)
+- Acciones:
+    - ver detalle
+    - editar
+    - eliminar (con confirmación)
+- Crear / editar producto con validaciones (React Hook Form + Zod)
+- Navegación entre páginas con TanStack Router
+- Datos simulados (mock) desde una capa `api`
 
-## Expanding the ESLint configuration
+## Requisitos
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Node.js 18+ (recomendado)
+- npm 9+ (o equivalente)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Instalación
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Ejecutar en desarrollo
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+Luego abre:
+
+- `http://localhost:5173/` (puede variar según el puerto disponible)
+
+## Estructura del proyecto (resumen)
+
+```text
+src/
+  lib/
+    api.ts                          # API simulada (mock)
+  modules/
+    products/
+      components/
+        ProductForm.tsx
+        ProductFilters.tsx
+        ProductTable.tsx
+      hooks/
+        userProducts.ts
+      pages/
+        ProductList.tsx
+        ProductCreate.tsx
+        ProductEdit.tsx
+        ProductDetail.tsx
+      schema/
+        product.schema.ts           # Zod schema + ProductFormData
+      types/
+        index.ts
+  routes/
+    __root.tsx                      # Layout principal (Outlet)
+  App.tsx                           # Árbol de rutas (TanStack Router)
+  main.tsx                          # Entry
+  index.css                         # Tailwind + estilos base
+```
+
+## Rutas
+
+- `/` → Lista de productos
+- `/nuevo` → Crear producto
+- `/productos/:id` → Detalle de producto
+- `/productos/:id/editar` → Editar producto
+
+## Scripts
+
+- `npm run dev` → desarrollo
+- `npm run build` → build de producción
+- `npm run preview` → previsualización del build
+- `npm run lint` → lint (si está configurado)
+
+## Notas
+
+- La “API” está simulada (mock) para facilitar la prueba, pero mantiene una interfaz similar a una real.
+- Validaciones del formulario se realizan con **Zod** y se integran a RHF con `@hookform/resolvers`.
+
+## Checklist de la prueba (referencia)
+
+- [x] CRUD básico
+- [x] Filtros
+- [x] Validación de formulario
+- [x] Navegación entre páginas
+- [x] Integración con datos simulados
+- [x] UI minimalista con Tailwind
+
+---
+
+© 2026 Product Manager
